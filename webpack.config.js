@@ -42,14 +42,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,     // 解析css
-                use: ExtractTextWebpackPlugin.extract({
-                    use: ['css-loader', 'postcss-loader'],
-                    publicPath: '../'
-                })
-            },
-            {
-                test: /\.less$/,     // 解析css
+                test: /\.(css|less)$/,     // 解析css
                 use: ExtractTextWebpackPlugin.extract({
                     use: ['css-loader', 'postcss-loader', 'less-loader'], // 从右向左解析
                     publicPath: '../'
@@ -102,10 +95,7 @@ module.exports = {
             filename: 'activity.html',
             chunks: ['vendor', 'utils', 'activity']
         }),
-        // 拆分后会把css文件放到dist目录下的css/style.css
-        new ExtractTextWebpackPlugin({
-            filename: 'css/[name].[hash].css'
-        })
+        new ExtractTextWebpackPlugin('css/[hash].css')
     ],
     devServer: {
         contentBase: './dist',
